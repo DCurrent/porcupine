@@ -13,11 +13,11 @@
 	abstract class DATABASE
 	{
 		const 
-			HOST 		= 'gensql.ad.uky.edu\general',	// Database host (server name or address)
-			NAME 		= 'inspection',					// Database logical name.
-			USER 		= 'caskeysc_dc',				// User name to access database.
-			PASSWORD	= 'CaskeyBill1!',				// Password to access database.
-			CHARSET		= 'UTF-8';						// Character set.
+			HOST 		= '',		// Database host (server name or address)
+			NAME 		= '',		// Database logical name.
+			USER 		= '',		// User name to access database.
+			PASSWORD	= '',		// Password to access database.
+			CHARSET		= 'UTF-8';	// Character set.
 	}
 
 	abstract class MAILING
