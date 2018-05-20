@@ -3,10 +3,7 @@
 	// Central config and libraries.
 	require(__DIR__.'/source/main.php');
 
-	$user = 'caskeysc_dc';
-	$pass = 'CaskeyBill1!';
-
-	$dbh = new PDO('mysql:host=www.caskeys.com;dbname=caskeysc_porcupine', $user, $pass);
+	$dbh = new PDO('mysql:host=www.caskeys.com;dbname=caskeysc_porcupine', DATABASE::USER, DATABASE::PASSWORD);
 
 	$sql = 'SELECT name_f, name_l, name_m FROM tbl_account_main ORDER BY name_l';
     foreach ($dbh->query($sql) as $row) {
@@ -16,7 +13,7 @@
     }
 
 	//echo $dbh;
-	
+
 	/*
 	function common_form_redirect($yukon_connection)
 	{
