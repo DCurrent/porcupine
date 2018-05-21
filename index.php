@@ -14,7 +14,7 @@
 
 	$sth = $dbh->prepare($sql);
 
-	$sth->execute(array(':arg_account' => 'dvcask2', ':arg_password' => '50CeeHello@!'));
+	$sth->execute(array(':arg_account' => '', ':arg_password' => ''));
 
 	$result = $sth->fetchall();
 
