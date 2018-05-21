@@ -4,19 +4,30 @@
 	// Central config and libraries.
 	require(__DIR__.'/source/main.php');
 
+	// Initialize connection configuration.
 	$_db_config = new \dc\mackenzie\ConnectConfig();
 
+	// Initialize database object.
 	$dbh = new PDO('mysql:host='.$_db_config->get_host().';dbname='.$_db_config->get_name(), $_db_config->get_user(), $_db_config->get_password());
 
-	$sql = 'SELECT name_f, name_l, name_m FROM tbl_account_main WHERE account = :arg_account AND credential = :arg_password ORDER BY name_l';
+	// SQL string.
+	$sql = 'CALL sp_account_login(:param_account, :param_password)';
 
+	// Prepare SQL statement.
 	$sth = $dbh->prepare($sql);
+	
+	$account 	= '';
+	$password	= '';
 
-	$sth->execute(array(':arg_account' => '', ':arg_password' => ''));
+	// Bind arguments for SQl statement.
+	$sth->bindValue(':param_account', $account, PDO::PARAM_STR);
+	$sth->bindValue(':param_password', $password, PDO::PARAM_STR);		
 
+	// Execute query from statement.
+	$sth->execute();
+
+	// Get results as array.
 	$result = $sth->fetchall();
-
-	print_r($result);
 
     foreach ($result as $row) {
         echo $row['name_l'] . "\t";
