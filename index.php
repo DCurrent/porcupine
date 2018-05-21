@@ -8,8 +8,6 @@
 
 	$dbh = new PDO('mysql:host='.$_db_config->get_host().';dbname='.$_db_config->get_name(), $_db_config->get_user(), $_db_config->get_password());
 
-	//$sql = 'SELECT name_f, name_l, name_m FROM tbl_account_main ORDER BY name_l';
-
 	$sql = 'SELECT name_f, name_l, name_m FROM tbl_account_main WHERE account = :arg_account AND credential = :arg_password ORDER BY name_l';
 
 	$sth = $dbh->prepare($sql);
