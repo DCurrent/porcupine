@@ -2,8 +2,6 @@
 	
 	require(__DIR__.'/config.php');				// User defined settings.
 	require(__DIR__.'/navigation.php');	
-	
-	
 
 	// Load class using namespace.
 	function dc_load_class($class_name) 
@@ -44,11 +42,11 @@
 		{
             require($file_name_full);
 			
-        	//echo ', loaded successfully. -->'.PHP_EOL;
+        	//echo '<-- '.$file_name_full.' loaded successfully. -->'.PHP_EOL;
 		} 
 		else 
 		{
-            //echo '<-- '.$file_name_full.' not found. -->'.PHP_EOL;
+           // echo '<-- '.$file_name_full.' not found. -->'.PHP_EOL;
         }
     }
 	

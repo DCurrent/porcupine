@@ -26,14 +26,29 @@
 	// Execute query from statement.
 	$sth->execute();
 
-	// Get results as array.
-	$result = $sth->fetchall();
+	$_obj_data_main = new \dc\data\Account();
+	
+	// Establish list object.
+	$_obj_data_main_list = new SplDoublyLinkedList();
 
-    foreach ($result as $row) {
-        echo $row['name_l'] . "\t";
-        echo $row['name_f'] . "\t";
-        echo $row['name_m'] . "";
-    }
+	// Loop all rows from database results.
+	while($object = $sth->fetchObject('\dc\data\Account'))
+	{				
+		// Add line object to linked list.
+		$_obj_data_main_list->push($object);
+	}
+
+	if(is_object($_obj_data_main_list) === TRUE)
+	{
+		for($_obj_data_main_list->rewind(); $_obj_data_main_list->valid(); $_obj_data_main_list->next())
+		{						
+			$_obj_data_main = $_obj_data_main_list->current();
+			
+			echo $_obj_data_main->get_name_l();
+			echo $_obj_data_main->get_name_m();
+		}
+	}
+	
 
 	//echo $dbh;
 
