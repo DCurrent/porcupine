@@ -26,17 +26,9 @@
 	// Execute query from statement.
 	$sth->execute();
 
-	$_obj_data_main = new \dc\data\Account();
-	
-	// Establish list object.
-	$_obj_data_main_list = new SplDoublyLinkedList();
+	$_account = new \dc\data\Account();
 
-	// Loop all rows from database results.
-	while($object = $sth->fetchObject('\dc\data\Account'))
-	{				
-		// Add line object to linked list.
-		$_obj_data_main_list->push($object);
-	}
+	$_obj_data_main_list = $_account->build_object_list($sth);
 
 	if(is_object($_obj_data_main_list) === TRUE)
 	{

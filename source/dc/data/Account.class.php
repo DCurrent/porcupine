@@ -19,16 +19,35 @@
 		function set_name_l(string $value);		// Last name.
 		function set_name_m(string $value);		// Middle name.
 	}
+
+	trait Database
+	{
+		public function build_object_list($sth)
+		{			
+			$_obj_data_main_list = new \SplDoublyLinkedList();
+			
+			// Loop all rows from database results.
+			while($object = $sth->fetchObject(__CLASS__))
+			{				
+				// Add line object to linked list.
+				$_obj_data_main_list->push($object);
+			}
+			
+			return $_obj_data_main_list;
+		}
+	}
 	
 	class Account implements iAccount
 	{
+		use Database;
+		
 		protected
 			$id_key		= NULL,
 			$account	= NULL,	
 			$credential	= NULL,
 			$name_f		= NULL,			
 			$name_l		= NULL,
-			$name_m		= NULL;
+			$name_m		= NULL;		
 			
 		// Accessors					
 		public function get_account()
