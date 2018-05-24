@@ -22,18 +22,39 @@
 
 	trait Database
 	{
-		public function build_object_list($sth)
-		{			
+		private $data_object;		// Single data object, populated from query.
+		private $data_object_list;	// list of data objects.
+		private $engine_statement;	// Statement reference from database engine.
+		
+		public function set_statement($value)
+		{
+			$this->engine_statement = $value;
+		}
+		
+		public function get_statement()
+		{
+			return $this->engine_statement;
+		}
+		
+		// Create and return an SplDoublyLinkedList of 
+		// data objects.
+		public function build_object_list()
+		{	
+			$statement = $this->engine_statement;
 			$_obj_data_main_list = new \SplDoublyLinkedList();
 			
 			// Loop all rows from database results.
-			while($object = $sth->fetchObject(__CLASS__))
-			{				
+			while($object = $statement->fetchObject(__CLASS__))
+			{	
 				// Add line object to linked list.
 				$_obj_data_main_list->push($object);
 			}
 			
-			return $_obj_data_main_list;
+			// Populate member with object list.
+			$this->data_object_list = $_obj_data_main_list;
+			
+			// Return object list.
+			return $this->data_object_list;
 		}
 	}
 	
@@ -41,14 +62,32 @@
 	{
 		use Database;
 		
-		protected
-			$id_key		= NULL,
-			$account	= NULL,	
-			$credential	= NULL,
-			$name_f		= NULL,			
-			$name_l		= NULL,
-			$name_m		= NULL;		
-			
+		private $id_key		= NULL;
+		private $account	= NULL;	
+		private $credential	= NULL;
+		private $name_f		= NULL;			
+		private $name_l		= NULL;
+		private $name_m		= NULL;		
+		
+		public function get_namespace()
+		{			
+			return __CLASS__;
+		}
+		
+		// Magic methods
+		public function __construct()
+		{}
+		
+		// Called if a property does not exisit 
+		// for database fetch to populate.
+		//
+		// Do nothing. This prevents creation of
+		// new public members when a field from the
+		// database doesn't have a matching member 
+		// in class.
+		public function __set($name, $value)
+		{}
+		
 		// Accessors					
 		public function get_account()
 		{			
