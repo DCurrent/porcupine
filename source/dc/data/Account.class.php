@@ -41,17 +41,14 @@
 		public function build_object_list()
 		{	
 			$statement = $this->engine_statement;
-			$_obj_data_main_list = new \SplDoublyLinkedList();
+			//$_obj_data_main_list = new \SplDoublyLinkedList();
 			
-			// Loop all rows from database results.
-			while($object = $statement->fetchObject(__CLASS__))
-			{	
-				// Add line object to linked list.
-				$_obj_data_main_list->push($object);
-			}
+			$_object_array = $statement->fetchAll(\PDO::FETCH_CLASS, __CLASS__);
 			
-			// Populate member with object list.
-			$this->data_object_list = $_obj_data_main_list;
+			
+			$_obj_data_main_list = new \ArrayObject($_object_array);
+			
+			$this->data_object_list = $_obj_data_main_list->getIterator();			
 			
 			// Return object list.
 			return $this->data_object_list;
