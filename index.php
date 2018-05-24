@@ -31,18 +31,19 @@
 
 	$_obj_data_main_list = $_account->build_object_list();
 
-	if(is_object($_obj_data_main_list) == TRUE)
-	{
-		for($_obj_data_main_list->rewind(); $_obj_data_main_list->valid(); $_obj_data_main_list->next())
-		{						
-			$_obj_data_main = $_obj_data_main_list->current();
+	echo "Iterating over: " . $_obj_data_main_list->count() . " values\n";
+
+	// Iterate over the values in the ArrayObject:
+	while($_obj_data_main_list->valid())
+	{		
+		$_obj_data_main = $_obj_data_main_list->current();
 			
-			echo $_obj_data_main->get_namespace();
-			echo $_obj_data_main->get_name_l();
-			echo $_obj_data_main->get_name_m();
-		}
+		echo $_obj_data_main->get_name_l().', ';
+		echo $_obj_data_main->get_name_f().' ';
+		echo $_obj_data_main->get_name_m();
+		
+		$_obj_data_main_list->next();
 	}
-	
 
 	//echo $dbh;
 
