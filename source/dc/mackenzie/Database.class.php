@@ -24,8 +24,6 @@ interface iDatabase
 	function set_statement($value);					// Set query statement reference.
 	
 	// Operations
-	
-	// Request
 	function free_statement();						// Free statement and clear statement member.
 	function query_execute();						// Execute prepared query with current parameters.
 	function query_prepare();						// Prepare query. Returns statement reference and sends to data member.
