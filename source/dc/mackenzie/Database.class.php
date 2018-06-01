@@ -333,27 +333,30 @@ class Database implements iDatabase
 				$error_handler->exception_throw(new Exception(EXCEPTION_MSG::QUERY_PREPARE_SQL, EXCEPTION_CODE::QUERY_PREPARE_SQL));				
 			}
 			
-			// Break down config object to array. This is the only 
-			// way sql_srv will accept config values for options.
-			if($config)
-			{
-				$config_a['Scrollable'] 			= $config->get_scrollable();
-				$config_a['SendStreamParamsAtExec']	= $config->get_sendstream();
-				$config_a['QueryTimeout'] 			= $config->get_timeout();
+			// Attempt to prepare the query statement. If PDO throws an exception,
+			// then we catch it and throw our own exception.
+			try 
+			{				
+				// Break down config object to array. This is the only 
+				// way prepare functions will accept optional config values.
+				if($config)
+				{
+					//$config_a['Scrollable'] 			= $config->get_scrollable();
+					//$config_a['SendStreamParamsAtExec']	= $config->get_sendstream();
+					//$config_a['QueryTimeout'] 			= $config->get_timeout();
+				}
+
+				// Prepare query and get statement.
+				$statement = $connect->prepare($sql, $config_a);				
+
+				// Set DB statement data member.
+				$this->statement = $statement;
 			}
-			
-			// Prepare query.		
-			$statement = sqlsrv_prepare($connect, $sql, $params, $config_a);
-		
-			// Set DB statement data member.
-			$this->statement = $statement;
-			
-			// Any errors?
-			if($error_handler->detect_error())
-			{
+			catch(\PDOException $exception) 
+			{	
 				$error_handler->exception_throw(new Exception(EXCEPTION_MSG::QUERY_PREPARE_ERROR, EXCEPTION_CODE::QUERY_PREPARE_ERROR));
 			}
-			
+						
 			// False/Failure returned.
 			if(!$statement)
 			{				
