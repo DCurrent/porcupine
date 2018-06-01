@@ -264,14 +264,16 @@ class Database implements iDatabase
 			if(!$this->statement)
 			{				
 				$error_handler->exception_throw(new Exception(EXCEPTION_MSG::QUERY_EXECUTE_STATEMENT, EXCEPTION_CODE::QUERY_EXECUTE_STATEMENT));				
-			}
+			}			
 			
-			// Execute prepared query.
-			$result = sqlsrv_execute($this->statement);
-			
-			// Any errors?
-			if($error_handler->detect_error())
+			// Attempt execute the statement. If PDO throws an exception,
+			// then we catch it and throw our own exception.
+			try 
 			{
+				$result = $this->statement->execute();
+			}
+			catch(\PDOException $exception) 
+			{	
 				$error_handler->exception_throw(new Exception(EXCEPTION_MSG::QUERY_EXECUTE_ERROR, EXCEPTION_CODE::QUERY_EXECUTE_ERROR));
 			}
 			
