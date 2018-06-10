@@ -47,8 +47,8 @@ class Database implements iDatabase
 		// be created and used. See individual methods
 		// for details.
 		$this->construct_connection($connect);
-		$this->construct_config($config);
-		$this->construct_line_parameters($line_config);	
+		//$this->construct_config($config);
+		//$this->construct_line_parameters($line_config);	
 	}
 	
 	public function __destruct()
