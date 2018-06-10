@@ -1,6 +1,6 @@
 <?php
 
-namespace dc\yukon;
+namespace dc\mackenzie;
 
 require_once('config.php');
 
