@@ -1,14 +1,18 @@
 <?php 
 	
+	use \dc\mackenzie as mackenzie;
 
 	// Central config and libraries.
 	require(__DIR__.'/source/main.php');
 
 	// Initialize connection configuration.
-	$_db_config = new \dc\mackenzie\ConnectConfig();
+	$_db_config = new mackenzie\ConnectConfig();
 
 	// Initialize database object.
 	$dbh = new PDO('mysql:host='.$_db_config->get_host().';dbname='.$_db_config->get_name(), $_db_config->get_user(), $_db_config->get_password());
+	
+	$_db_connect = new mackenzie\Connect($_db_config);
+	//$_dbo = new mackenzie\Database($_db_config);
 
 	// SQL string.
 	$sql = 'CALL sp_account_login(:param_account, :param_password)';
