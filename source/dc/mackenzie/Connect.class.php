@@ -84,7 +84,7 @@ class Connect implements iConnect
 			}
 			
 			// Initialize database object.
-			$connect = new PDO('mysql:host='.$config->get_host().';dbname='.$config->get_name(), $config->get_user(), $config->get_password());
+			$connect = new \PDO('mysql:host='.$config->get_host().';dbname='.$config->get_name(), $config->get_user(), $config->get_password());
 
 			// False returned. Database connection has failed.
 			if(!$connect)
