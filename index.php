@@ -6,19 +6,13 @@
 	require(__DIR__.'/source/main.php');
 
 	// Initialize connection configuration.
-	$_db_config = new mackenzie\ConnectConfig();
-
-	// Initialize database object.
-	$dbh = new PDO('mysql:host='.$_db_config->get_host().';dbname='.$_db_config->get_name(), $_db_config->get_user(), $_db_config->get_password());
-	
-	$_db_connect = new mackenzie\Connect($_db_config);
-	//$_dbo = new mackenzie\Database($_db_config);
+	$_dbo_database = new mackenzie\Database();
 
 	// SQL string.
 	$sql = 'CALL sp_account_login(:param_account, :param_password)';
 
 	// Prepare SQL statement.
-	$sth = $dbh->prepare($sql);
+	$sth = $_dbo_database->get_connection()->get_connection()->prepare($sql);
 	
 	$account 	= '';
 	$password	= '';
