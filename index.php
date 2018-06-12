@@ -12,7 +12,7 @@
 	$sql = 'CALL sp_account_login(:param_account, :param_password)';
 
 	// Prepare SQL statement.
-	$sth = $_dbo_database->get_connection()->get_connection()->prepare($sql);
+	$sth = $_dbo_database->get_dbo_instance()->prepare($sql);
 	
 	$account 	= '';
 	$password	= '';
