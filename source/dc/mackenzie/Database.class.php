@@ -2,6 +2,8 @@
 
 namespace dc\mackenzie;
 
+use \PDO as PDO;
+
 require_once('config.php');
 
 // Query object. Execute SQL queries and return data.
@@ -49,8 +51,14 @@ class Database implements iDatabase
 		// if an argument is NULL, a blank object will
 		// be created and used. See individual methods
 		// for details.
-		$this->construct_connection($connect_config);
-		//$this->construct_config($dbo_config);
+		
+		// Construct default configurations.		
+		$this->construct_connect_config($connect_config);
+		$this->construct_dbo_config($dbo_config);
+		
+		// Open Connection.
+		$this->open_connection($this->connect_config);		
+		
 		//$this->construct_line_parameters($line_config);	
 	}
 	
@@ -60,6 +68,41 @@ class Database implements iDatabase
 	
 	// *Constructors
 	// Connect to database host. Returns connection.
+	
+	private function construct_connect_config(ConnectConfig $value = NULL)
+	{			
+		// Set connection parameters member. If no argument
+		// is provided, then create a blank connection
+		// parameter instance.
+		if(is_object($value))
+		{
+			$this->connect_config = $value;
+		}
+		else
+		{
+			$this->connect_config = new ConnectConfig();
+		}
+	
+		return $this->connect_config;
+	}
+	
+	private function construct_dbo_config(DatabaseConfig $value = NULL)
+	{			
+		// Set connection parameters member. If no argument
+		// is provided, then create a blank connection
+		// parameter instance.
+		if(is_object($value))
+		{
+			$this->dbo_config = $value;
+		}
+		else
+		{
+			$this->dbo_config = new DatabaseConfig();
+		}
+	
+		return $this->dbo_config;
+	}
+	
 	public function open_connection(ConnectConfig $connect_config)
 	{			
 		$dbo_instance 	= NULL; // Database connection reference.
@@ -70,7 +113,7 @@ class Database implements iDatabase
 		if(!$connect_config)
 		{
 			$connect_config = $this->connect_config;
-		}
+		}																
 		
 		$error_handler	= $this->dbo_config->get_error();
 		
@@ -153,6 +196,11 @@ class Database implements iDatabase
 	
 	
 	// *Accessors
+	public function get_connect_config()
+	{
+		return $this->connect_config;	
+	}
+	
 	public function get_dbo_config()
 	{
 		return $this->dbo_config;
@@ -183,16 +231,22 @@ class Database implements iDatabase
 		return $this->statement;
 	}
 	
-	// *Mutators
 	public function get_sql()
 	{
 		return $this->sql;
 	}
 	
+	// *Mutators
+	
 	// Set query sql parameters data member.
 	public function set_param_array(array $value)
 	{		
 		$this->params = $value;
+	}
+
+	public function set_connect_config(ConnectConfig $value)
+	{
+		$this->connect_config = $value;
 	}
 	
 	public function set_dbo_config(DatabaseConfig $value)
