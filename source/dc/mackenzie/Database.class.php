@@ -8,16 +8,16 @@ require_once('config.php');
 interface iDatabase
 {	
 	// Accessors
-	function get_config();							// Return config object.
-	function get_connection();						// Return connection object.
+	function get_dbo_config();						// Return config object.
+	function get_dbo_instance();					// Return connection object.
 	function get_line_config();						// Return line parameters object.
 	function get_param_array();						// Return query parameter array.
 	function get_sql();								// Return current SQl statement.
 	function get_statement();						// Return query statement data member.
 	
 	// Mutators
-	function set_config(DatabaseConfig $value);		// Set the object to be used for query config settings.
-	function set_connection(Connect $value);		// Set connection data member.
+	function set_dbo_config(DatabaseConfig $value);	// Set the object to be used for query config settings.
+	function set_dbo_instance($value);				// Set connection data member.
 	function set_line_config(LineConfig $value);	// Set line parameters object.
 	function set_param_array(array $value);			// Set query sql parameter array data member.
 	function set_sql($value);						// Set query sql string data member.
@@ -32,7 +32,7 @@ interface iDatabase
 
 class Database implements iDatabase
 {
-	private $config			= NULL;		// Query config object.
+	private $dbo_config		= NULL;		// Query config object.
 	private	$connect		= NULL;		// DB connection object.
 	private	$line_config	= NULL;		// Line get config.
 	private	$params 		= array();	// SQL parameters.
@@ -40,14 +40,14 @@ class Database implements iDatabase
 	private	$statement		= NULL;		// Prepared/Executed query reference.
 	
 	// Magic
-	public function __construct(Connect $connect = NULL, DatabaseConfig $config = NULL, LineConfig $line_config = NULL)
+	public function __construct(Connect $connect = NULL, DatabaseConfig $dbo_config = NULL, LineConfig $line_config = NULL)
 	{
 		// Set up memeber objects we'll need. In most cases,
 		// if an argument is NULL, a blank object will
 		// be created and used. See individual methods
 		// for details.
 		$this->construct_connection($connect);
-		//$this->construct_config($config);
+		//$this->construct_config($dbo_config);
 		//$this->construct_line_parameters($line_config);	
 	}
 	
@@ -95,7 +95,7 @@ class Database implements iDatabase
 		}
 		
 		// Populate member with result.
-		$this->config = $result;
+		$this->dbo_config = $result;
 	
 		return $result;		
 	}
@@ -124,9 +124,9 @@ class Database implements iDatabase
 	
 	
 	// *Accessors
-	public function get_config()
+	public function get_dbo_config()
 	{
-		return $this->config;
+		return $this->dbo_config;
 	}
 	
 	public function get_connection()
@@ -166,9 +166,9 @@ class Database implements iDatabase
 		$this->params = $value;
 	}
 	
-	public function set_config(DatabaseConfig $value)
+	public function set_dbo_config(DatabaseConfig $value)
 	{
-		$this->config = $value;
+		$this->dbo_config = $value;
 	}
 	
 	public function set_connection(Connect $value)
@@ -202,7 +202,7 @@ class Database implements iDatabase
 	public function free_statement()
 	{
 		$result;
-		$error_handler 	= $this->config->get_error();
+		$error_handler 	= $this->dbo_config->get_error();
 		
 		try 
 		{
@@ -241,7 +241,7 @@ class Database implements iDatabase
 	public function query_execute()
 	{
 		$result;
-		$error_handler 	= $this->config->get_error();
+		$error_handler 	= $this->dbo_config->get_error();
 		
 		try 
 		{
@@ -281,20 +281,20 @@ class Database implements iDatabase
 	public function query_prepare()
 	{
 		// Dereference error handler.
-		$error_handler 	= $this->config->get_error();
+		$error_handler 	= $this->dbo_config->get_error();
 		
 		$connect	= NULL;		// Database connection reference.
 		$statement	= NULL;		// Database statement reference.			
 		$sql		= NULL;		// SQL string.
 		$params		= array(); 	// Parameter array.
-		$config		= NULL;		// Query config object.
-		$config_a	= array();	// Query config array.
+		$dbo_config		= NULL;		// Query config object.
+		$dbo_config_a	= array();	// Query config array.
 		
 		// Dereference data members.
 		$connect	= $this->connect->get_connection();
 		$sql 		= $this->sql;
 		$params 	= $this->params;
-		$config		= $this->config;
+		$dbo_config		= $this->dbo_config;
 		
 		try 
 		{
@@ -304,8 +304,8 @@ class Database implements iDatabase
 				$error_handler->exception_throw(new Exception(EXCEPTION_MSG::QUERY_PREPARE_CONNECTION, EXCEPTION_CODE::QUERY_PREPARE_CONNECTION));				
 			}		
 			
-			// Verify config object.
-			if(!is_object($config))
+			// Verify dbo_config object.
+			if(!is_object($dbo_config))
 			{				
 				$error_handler->exception_throw(new Exception(EXCEPTION_MSG::QUERY_PREPARE_CONFIG, EXCEPTION_CODE::QUERY_PREPARE_CONFIG));				
 			}		
@@ -324,15 +324,15 @@ class Database implements iDatabase
 			{				
 				// Break down config object to array. This is the only 
 				// way prepare functions will accept optional config values.
-				if($config)
+				if($dbo_config)
 				{
-					//$config_a['Scrollable'] 			= $config->get_scrollable();
-					//$config_a['SendStreamParamsAtExec']	= $config->get_sendstream();
-					//$config_a['QueryTimeout'] 			= $config->get_timeout();
+					//$dbo_config_a['Scrollable'] 			= $dbo_config->get_scrollable();
+					//$dbo_config_a['SendStreamParamsAtExec']	= $dbo_config->get_sendstream();
+					//$dbo_config_a['QueryTimeout'] 			= $dbo_config->get_timeout();
 				}
 
 				// Prepare query and get statement.
-				$statement = $connect->prepare($sql, $config_a);				
+				$statement = $connect->prepare($sql, $dbo_config_a);				
 
 				// Set DB statement data member.
 				$this->statement = $statement;
@@ -364,20 +364,20 @@ class Database implements iDatabase
 	public function query_run()
 	{
 		// Dereference error handler.
-		$error_handler 	= $this->config->get_error();
+		$error_handler 	= $this->dbo_config->get_error();
 		
 		$connect	= NULL;		// Database connection reference.
 		$statement	= NULL;		// Database statement reference.			
 		$sql		= NULL;		// SQL string.
 		$params		= array(); 	// Parameter array.
-		$config		= NULL;		// Query config object.
-		$config_a	= array();	// Query config array.
+		$dbo_config		= NULL;		// Query config object.
+		$dbo_config_a	= array();	// Query config array.
 		
 		// Dereference data members.
 		$connect	= $this->connect->get_connection();
 		$sql 		= $this->sql;
 		$params 	= $this->params;
-		$config		= $this->config;
+		$dbo_config	= $this->dbo_config;
 		
 		try 
 		{
@@ -387,8 +387,8 @@ class Database implements iDatabase
 				$error_handler->exception_throw(new Exception(EXCEPTION_MSG::QUERY_RUN_CONNECTION, EXCEPTION_CODE::QUERY_RUN_CONNECTION));				
 			}		
 			
-			// Verify config object.
-			if(!is_object($config))
+			// Verify dbo_config object.
+			if(!is_object($dbo_config))
 			{				
 				$error_handler->exception_throw(new Exception(EXCEPTION_MSG::QUERY_RUN_CONFIG, EXCEPTION_CODE::QUERY_RUN_CONFIG));				
 			}		
@@ -405,17 +405,17 @@ class Database implements iDatabase
 			// then we catch it and throw our own exception.
 			try 
 			{				
-				// Break down config object to array. This is the only 
+				// Break down dbo_config object to array. This is the only 
 				// way prepare functions will accept optional config values.
-				if($config)
+				if($dbo_config)
 				{
-					//$config_a['Scrollable'] 			= $config->get_scrollable();
-					//$config_a['SendStreamParamsAtExec']	= $config->get_sendstream();
-					//$config_a['QueryTimeout'] 			= $config->get_timeout();
+					//$dbo_config_a['Scrollable'] 			= $dbo_config->get_scrollable();
+					//$dbo_config_a['SendStreamParamsAtExec']	= $dbo_config->get_sendstream();
+					//$dbo_config_a['QueryTimeout'] 			= $dbo_config->get_timeout();
 				}
 
 				// Prepare query and get statement.
-				$statement = $connect->query($sql, $config_a);				
+				$statement = $connect->query($sql, $dbo_config_a);				
 
 				// Set DB statement data member.
 				$this->statement = $statement;
