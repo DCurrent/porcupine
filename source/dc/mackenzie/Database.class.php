@@ -59,26 +59,52 @@ class Database implements iDatabase
 	}
 	
 	// *Constructors
-	private function construct_connection(Connect $value = NULL)
-	{
-		$result = NULL;	// Final connection result.
+	// Connect to database host. Returns connection.
+	public function open_connection(ConnectConfig $connect_config)
+	{			
+		$dbo_instance 	= NULL; // Database connection reference.
+		$db_cred 		= NULL; // Credentials array.
 		
-		// Verify argument is an object.
-		$is_object = is_object($value);
-		
-		if($is_object)
+		// Default to class member if no connection 
+		// argument is passed.
+		if(!$connect_config)
 		{
-			$result = $value;		
-		}
-		else
-		{
-			$result = new Connect();		
+			$connect_config = $this->connect_config;
 		}
 		
-		// Populate member with result.
-		$this->dbo_instance = $result;
-	
-		return $result;		
+		$error_handler	= $this->dbo_config->get_error();
+		
+		try 
+		{
+			// Can't connect if there's no host.
+			if(!$connect_config->get_host())
+			{
+				$msg = EXCEPTION_MSG::CONNECT_OPEN_HOST;
+				$msg .= ', Host: '.$config->get_host();
+				$msg .= ', DB: '.$config->get_name();
+				
+				$error->exception_throw(new Exception($msg, EXCEPTION_CODE::CONNECT_OPEN_HOST));				
+			}
+			
+			// Initialize database object.
+			$dbo_instance = new PDO('mysql:host='.$connect_config->get_host().';dbname='.$connect_config->get_name(), $connect_config->get_user(), $connect_config->get_password());
+
+			// False returned. Database connection has failed.
+			if(!$dbo_instance)
+			{				
+				$error->exception_throw(new Exception(EXCEPTION_MSG::CONNECT_OPEN_FAIL, EXCEPTION_CODE::CONNECT_OPEN_FAIL));
+			}			
+		}
+		catch (Exception $exception) 
+		{
+			// Catch exception internally if configured to do so.
+			$error->exception_catch();
+		}
+		
+		// Set database instance member.
+		$this->dbo_instance = $dbo_instance;
+		
+		return $dbo_instance;
 	}
 	
 	private function construct_config(DatabaseConfig $value = NULL)
