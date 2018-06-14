@@ -66,9 +66,9 @@ class Database implements iDatabase
 	{
 	}
 	
-	// *Constructors
-	// Connect to database host. Returns connection.
-	
+	// Apply connect config object. If NULL is passed,
+	// then a new connect config object with default
+	// values will be established and used instead.
 	private function construct_connect_config(ConnectConfig $value = NULL)
 	{			
 		// Set connection parameters member. If no argument
@@ -86,6 +86,9 @@ class Database implements iDatabase
 		return $this->connect_config;
 	}
 	
+	// Apply database config object. If NULL is passed,
+	// then a new connect config object with default
+	// values will be established and used instead.
 	private function construct_dbo_config(DatabaseConfig $value = NULL)
 	{			
 		// Set connection parameters member. If no argument
@@ -101,6 +104,44 @@ class Database implements iDatabase
 		}
 	
 		return $this->dbo_config;
+	}
+	
+	// Close database connection and returns TRUE, or 
+	// return FALSE if connection does not exist.
+	public function close_connection()
+	{
+		$result 	= FALSE;					// Connection present and closed?
+		$connect 	= $this->dbo_instance;		// Database instance connection.
+		$config		= $this->dbo_config;
+		$error		= $this->dbo_config->get_error();
+		
+		try 
+		{
+			// Can't close if there is no connection.
+			if(!$connect)
+			{
+				$error->exception_throw(new Exception(EXCEPTION_MSG::CONNECT_CLOSE_CONNECTION, EXCEPTION_CODE::CONNECT_CLOSE_CONNECTION));				
+			}
+			
+			// Close database connection. For PDO, all you do is NULL the object reference.
+			$this->dbo_instance = NULL;
+			
+			$result = $this->dbo_instance;
+
+			// Verify we were able to disconnect, else throw exception.
+			if(!$result)
+			{
+				$error->exception_throw(new Exception(EXCEPTION_MSG::CONNECT_CLOSE_FAIL, EXCEPTION_CODE::CONNECT_CLOSE_FAIL));
+			}
+			
+		}
+		catch (Exception $exception) 
+		{	
+			// Catch exception internally if configured to do so.
+			$error->exception_catch();
+		}
+				
+		return $result;
 	}
 	
 	public function open_connection(ConnectConfig $connect_config)
