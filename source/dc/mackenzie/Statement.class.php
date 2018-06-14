@@ -5,12 +5,9 @@ namespace dc\mackenzie;
 require_once('config.php');
 
 // Query object. Execute SQL queries and return data.
-interface iDatabase
+interface iStatement
 {	
 	// Accessors
-	function get_config();							// Return config object.
-	function get_connection();						// Return connection object.
-	function get_line_config();						// Return line parameters object.
 	function get_param_array();						// Return query parameter array.
 	function get_sql();								// Return current SQl statement.
 	function get_statement();						// Return query statement data member.
@@ -45,126 +42,36 @@ interface iDatabase
 
 class Database implements iDatabase
 {
-	private $config			= NULL;		// Query config object.
-	private	$connect		= NULL;		// DB connection object.
-	private	$line_config	= NULL;		// Line get config.
+	private $sto_instance	= NULL;		// Statement instance from database.
 	private	$params 		= array();	// SQL parameters.
 	private	$sql			= NULL;		// SQL string.
 	private	$statement		= NULL;		// Prepared/Executed query reference.
 	
 	// Magic
-	public function __construct(Connect $connect = NULL, DatabaseConfig $config = NULL, LineConfig $line_config = NULL)
+	public function __construct(Database $dbo_instance = NULL)
 	{
-		// Set up memeber objects we'll need. In most cases,
-		// if an argument is NULL, a blank object will
-		// be created and used. See individual methods
-		// for details.
-		$this->construct_connection($connect);
-		$this->construct_config($config);
-		$this->construct_line_parameters($line_config);	
 	}
 	
 	public function __destruct()
 	{		
 	}
 	
-	// *Constructors
-	private function construct_connection(Connect $value = NULL)
-	{
-		$result = NULL;	// Final connection result.
 		
-		// Verify argument is an object.
-		$is_object = is_object($value);
-		
-		if($is_object)
-		{
-			$result = $value;		
-		}
-		else
-		{
-			$result = new Connect();		
-		}
-		
-		// Populate member with result.
-		$this->connect = $result;
-	
-		return $result;		
-	}
-	
-	private function construct_config(DatabaseConfig $value = NULL)
-	{
-		$result = NULL;	// Final connection result.
-		
-		// Verify argument is an object.
-		$is_object = is_object($value);
-		
-		if($is_object)
-		{
-			$result = $value;		
-		}
-		else
-		{
-			$result = new DatabaseConfig();		
-		}
-		
-		// Populate member with result.
-		$this->config = $result;
-	
-		return $result;		
-	}
-	
-	private function construct_line_parameters(LineConfig $value = NULL)
-	{
-		$result = NULL;	// Final connection result.
-		
-		// Verify argument is an object.
-		$is_object = is_object($value);
-		
-		if($is_object)
-		{
-			$result = $value;		
-		}
-		else
-		{
-			$result = new LineConfig();		
-		}
-		
-		// Populate member with result.
-		$this->line_config = $result;
-	
-		return $result;		
-	}
-	
 	
 	// *Accessors
-	public function get_config()
-	{
-		return $this->config;
-	}
-	
-	public function get_connection()
-	{
-		return $this->connect;
-	}
-	
 	public function get_error()
 	{
 		return $this->error;	
 	}
-		
-	public function get_line_config()
-	{
-		return $this->line_config;
-	}
-	
+			
 	public function get_param_array()
 	{
 		return $this->params;	
 	}
 	
-	public function get_statement()
+	public function get_sto_instance()
 	{
-		return $this->statement;
+		return $this->sto_instance;
 	}
 	
 	// *Mutators
@@ -179,34 +86,20 @@ class Database implements iDatabase
 		$this->params = $value;
 	}
 	
-	public function set_config(DatabaseConfig $value)
-	{
-		$this->config = $value;
-	}
-	
-	public function set_connection(Connect $value)
-	{
-		$this->connect = $value;
-	}
 	
 	public function set_error(Error $value)
 	{
 		$this->error = $value;
-	}
-			
-	public function set_line_config(LineConfig $value)
-	{
-		$this->line_config = $value;
-	}
+	}			
 	
 	public function set_sql($value)
 	{
 		$this->sql = $value;
 	}
 	
-	public function set_statement($value)
+	public function set_sto_instance($value)
 	{
-		$this->statement = $value;
+		$this->sto_instance = $value;
 	}
 	
 	
