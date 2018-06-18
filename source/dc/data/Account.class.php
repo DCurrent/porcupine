@@ -43,7 +43,10 @@
 			$statement = $this->engine_statement;
 			//$_obj_data_main_list = new \SplDoublyLinkedList();
 			
-			$_object_array = $statement->fetchAll(\PDO::FETCH_CLASS, __CLASS__);
+			$statement->setFetchMode(\PDO::FETCH_INTO, $this);
+			$_object_array = $statement->fetchAll();
+			
+			//$_object_array = $statement->fetchAll(\PDO::FETCH_CLASS, $this);
 			
 			
 			$_obj_data_main_list = new \ArrayObject($_object_array);
@@ -52,6 +55,21 @@
 			
 			// Return object list.
 			return $this->data_object_list;
+		}
+		
+		// Populate members if a set() method is available.
+		private function populate_by_set($name, $value)
+		{				
+			// Add "set_" to attribute name. 	
+			$method = 'set_'.$name;
+			
+			// If a matching method exists, use it to populate
+			// the member.
+			if(method_exists($this, $method))
+			{
+				$this->$method($value);
+			}
+			
 		}
 	}
 	
@@ -83,7 +101,9 @@
 		// database doesn't have a matching member 
 		// in class.
 		public function __set($name, $value)
-		{}
+		{
+			$this->populate_by_set($name, $value);
+		}
 		
 		// Accessors					
 		public function get_account()
