@@ -36,7 +36,7 @@ class Statement implements iStatement
 	private $fetch_class_name	= NULL;		// Class name when fetching to a class.
 		
 	// Magic
-	public function __construct(Database $sto_instance = NULL, StatementConfig $sto_config = NULL)
+	public function __construct(STO $sto_instance = NULL, StatementConfig $sto_config = NULL)
 	{
 		$this->construct_config($sto_config);	
 	}
