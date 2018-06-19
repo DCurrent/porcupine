@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace dc\mackenzie;
 use \PDOStatement as STO;
