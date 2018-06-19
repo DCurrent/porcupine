@@ -12,7 +12,7 @@ interface iStatement
 	// Accessors
 	function get_fetch_class_name(): string;					 
 	function get_sto_config(): StatementConfig;
-	function get_sto_instance();
+	function get_sto_instance(): STO;
 	
 	// Mutators
 	function set_fetch_class_name(string $value);
@@ -104,7 +104,7 @@ class Statement implements iStatement
 		return $this->sto_config;
 	}
 	
-	public function get_sto_instance()
+	public function get_sto_instance(): STO
 	{
 		return $this->sto_instance;
 	}
