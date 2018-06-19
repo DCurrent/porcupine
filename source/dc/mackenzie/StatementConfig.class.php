@@ -2,6 +2,8 @@
 
 namespace dc\mackenzie;
 
+declare(strict_types=1);
+
 require_once('config.php');
 
 // Data structure for the options parameter when preparing SQL queries.
@@ -9,14 +11,14 @@ interface iDatabaseConfig
 {	
 	// Accessors
 	function get_error();
-	function get_timeout();
+	function get_timeout(): int;
 	
 	// Mutators
-	function set_error($value);
-	function set_timeout($value);
+	function set_error(Error $value);
+	function set_timeout(int $value);
 }
 
-class DatabaseConfig implements iDatabaseConfig
+class StatementConfig implements iStatementConfig
 {	
 	private 
 		$error		= NULL,	// Exception catching flag.
@@ -32,23 +34,23 @@ class DatabaseConfig implements iDatabaseConfig
 	}
 	
 	// Accessors
-	public function get_error()
+	public function get_error(): Error
 	{
 		return $this->error;
 	}
 	
-	public function get_timeout()
+	public function get_timeout(): int 
 	{		
 		return $this->timeout;
 	}
 	
 	// Mutators
-	public function set_error($value)
+	public function set_error(Error $value)
 	{
 		$this->error = $value;
 	}
 
-	public function set_timeout($value)
+	public function set_timeout(int $value)
 	{		
 		$this->timeout = $value;
 	}	
