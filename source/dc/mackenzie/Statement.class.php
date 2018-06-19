@@ -10,7 +10,7 @@ require_once('config.php');
 interface iStatement
 {	
 	// Accessors
-	function get_fetch_class_name();					 
+	function get_fetch_class_name(): string;					 
 	function get_sto_config();
 	function get_sto_instance();
 	
@@ -94,7 +94,7 @@ class Statement implements iStatement
 	}
 	
 	// *Accessors	
-	public function get_fetch_class_name()
+	public function get_fetch_class_name(): string
 	{
 		return $this->fetch_class_name;
 	}
