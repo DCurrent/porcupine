@@ -2,11 +2,12 @@
 declare(strict_types=1);
 
 namespace dc\mackenzie;
+
 use \PDOStatement as STO;
 
 require_once('config.php');
 
-// Query object. Execute SQL queries and return data.
+// Statement object. Execute statement methods and fetch data.
 interface iStatement
 {	
 	// Accessors
@@ -47,7 +48,11 @@ class Statement implements iStatement
 	{		
 	}		
 	
-	// Constructors
+	// Constructors.
+	
+	// Populate member with argument, or establish a 
+	// an object with default values if no argument
+	// or a NULL is passed.
 	private function construct_config(StatementConfig $value = NULL)
 	{
 		$result = NULL;	// Final connection result.
@@ -70,7 +75,9 @@ class Statement implements iStatement
 		return $result;
 	}
 	
-	// Constructors
+	// Populate member with argument, or establish a 
+	// an object with default values if no argument
+	// or a NULL is passed.
 	private function construct_statement_instance(STO $value = NULL)
 	{
 		$result = NULL;	// Final connection result.
@@ -93,7 +100,7 @@ class Statement implements iStatement
 		return $result;
 	}
 	
-	// *Accessors	
+	// Accessors.	
 	public function get_fetch_class_name(): string
 	{
 		return $this->fetch_class_name;
@@ -109,7 +116,7 @@ class Statement implements iStatement
 		return $this->sto_instance;
 	}
 	
-	// *Mutators
+	// Mutators
 	public function set_fetch_class_name(string $value)
 	{
 		$this->fetch_class_name = $value;
@@ -125,7 +132,8 @@ class Statement implements iStatement
 		$this->sto_instance = $value;
 	}
 	
-	// *Request
+	// Operations.
+	
 	// Free statement and clear statement member.
 	public function free_statement()
 	{
