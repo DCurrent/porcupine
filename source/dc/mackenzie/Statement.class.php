@@ -10,10 +10,12 @@ interface iStatement
 {	
 	// Accessors
 	function get_fetch_class_name();					 
+	function get_sto_config();
 	function get_sto_instance();
 	
 	// Mutators
 	function set_fetch_class_name(string $value);
+	function set_sto_config(StatementConfig $value);
 	function set_sto_instance(STO $value);
 	
 	// Operations
@@ -27,29 +29,73 @@ interface iStatement
 	function row_exists();			// Verify the statement contains rows.
 }
 
-class Database implements iDatabase
+class Statement implements iStatement
 {
 	private $sto_config			= NULL;		// Statement config object.
 	private $sto_instance		= NULL;		// Statement instance from database.
 	private $fetch_class_name	= NULL;		// Class name when fetching to a class.
 		
 	// Magic
-	public function __construct(Database $sto_instance = NULL)
+	public function __construct(Database $sto_instance = NULL, StatementConfig $sto_config = NULL)
 	{
+		$this->construct_config($sto_config);	
 	}
 	
 	public function __destruct()
 	{		
 	}		
 	
+	// Constructors
+	private function construct_config(StatementConfig $value = NULL)
+	{
+		$result = NULL;	// Final connection result.
+		
+		// Verify argument is an object.
+		$is_object = is_object($value);
+		
+		if($is_object)
+		{
+			$result = $value;		
+		}
+		else
+		{
+			$result = new StatementConfig();		
+		}
+		
+		// Populate member with result.
+		$this->sto_config = $result;
+	
+		return $result;
+	}
+	
 	// *Accessors	
+	public function get_fetch_class_name()
+	{
+		return $this->fetch_class_name;
+	}
+	
+	public function get_sto_config()
+	{
+		return $this->sto_config;
+	}
+	
 	public function get_sto_instance()
 	{
 		return $this->sto_instance;
 	}
 	
 	// *Mutators
-	public function set_sto_instance($value)
+	public function set_fetch_class_name(string $value)
+	{
+		$this->fetch_class_name = $value;
+	}
+	
+	public function set_sto_config(StatementConfig $value)
+	{
+		$this->sto_config = $value;
+	}
+	
+	public function set_sto_instance(STO $value)
 	{
 		$this->sto_instance = $value;
 	}
