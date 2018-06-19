@@ -13,19 +13,21 @@
 
 	// Prepare SQL statement.
 	$sth = $_dbo_database->get_dbo_instance()->prepare($sql);
-	
+
+	$sto = new mackenzie\Statement($sth);
+
 	$account 	= '';
 	$password	= '';
 
 	// Bind arguments for SQl statement.
-	$sth->bindValue(':param_account', $account, PDO::PARAM_STR);
-	$sth->bindValue(':param_password', $password, PDO::PARAM_STR);		
+	$sto->get_sto_instance()->bindValue(':param_account', $account, PDO::PARAM_STR);
+	$sto->get_sto_instance()->bindValue(':param_password', $password, PDO::PARAM_STR);		
 
 	// Execute query from statement.
-	$sth->execute();
+	$sto->get_sto_instance()->execute();
 
 	$_account = new \dc\data\Account();
-	$_account->set_statement($sth);
+	$_account->set_statement($sto->get_sto_instance());
 
 	$_obj_data_main_list = $_account->build_object_list();
 
