@@ -1,6 +1,7 @@
 <?php
 
 namespace dc\mackenzie;
+use \PDOStatement as STO;
 
 require_once('config.php');
 
@@ -8,28 +9,29 @@ require_once('config.php');
 interface iStatement
 {	
 	// Accessors
-	function get_sto_instance();					// Return statement instance data member.
+	function get_fetch_class_name();					 
+	function get_sto_instance();
 	
 	// Mutators
-	function get_sto_instance($value);				// Set statement instance data member.
+	function set_fetch_class_name(string $value);
+	function set_sto_instance(STO $value);
 	
 	// Operations
-	function free_statement();						// Free statement and clear statement member.
-	
-	// Results
-	function get_field_count();						// Return number of fields.
-	function get_field_metadata();					// Fetch and return table row's metadata array (column names, types, etc.).
-	function get_line_object();						// Fetch and return line object from table rows.
-	function get_line_object_all();					// Create and return a 2D array consisting of all line arrays from database query.
-	function get_line_object_list(); 				// Create and return a linked list consisting of all line objects from database query.
-	function get_next_result();						// Move to and return next result set.
-	function get_row_count();						// Return number of records.
-	function get_row_exists();						// Verify the statement contains rows.
+	function field_count();			// Return number of fields.
+	function field_metadata();		// Fetch and return table row's metadata array (column names, types, etc.).
+	function free_statement();		// Free statement and clear statement member.
+	function line_object();			// Fetch and return line object from table rows.
+	function line_object_list();	// Create and return a linked list consisting of all line objects from database query.
+	function next_result();			// Move to and return next result set.
+	function row_count();			// Return number of records.
+	function row_exists();			// Verify the statement contains rows.
 }
 
 class Database implements iDatabase
 {
-	private $sto_instance	= NULL;		// Statement instance from database.
+	private $sto_config			= NULL;		// Statement config object.
+	private $sto_instance		= NULL;		// Statement instance from database.
+	private $fetch_class_name	= NULL;		// Class name when fetching to a class.
 		
 	// Magic
 	public function __construct(Database $sto_instance = NULL)
@@ -51,7 +53,6 @@ class Database implements iDatabase
 	{
 		$this->sto_instance = $value;
 	}
-	
 	
 	// *Request
 	// Free statement and clear statement member.
@@ -94,7 +95,7 @@ class Database implements iDatabase
 	}
 		
 	// *Results.
-	public function get_field_count()
+	public function field_count()
 	{
 		$error_handler 	= $this->config->get_error();
 		$result			= 0;
@@ -127,7 +128,7 @@ class Database implements iDatabase
 	}
 	
 	// Fetch and return table row's metadata array (column names, types, etc.).
-	public function get_field_metadata()
+	public function field_metadata()
 	{
 		$result = array();
 		
@@ -148,8 +149,6 @@ class Database implements iDatabase
 				throw new Exception(EXCEPTION_MSG::METADATA_ERROR, EXCEPTION_CODE::METADATA_ERROR);
 			}
 			
-			
-			
 		}
 		catch (Exception $exception) 
 		{	
@@ -161,7 +160,7 @@ class Database implements iDatabase
 	}
 		
 	// Fetch and return line object from table rows.
-	public function get_line_object()
+	public function line_object()
 	{
 		$line		= NULL;		// Database line object.
 		$statement	= NULL;		// Query result reference.
@@ -187,7 +186,7 @@ class Database implements iDatabase
 	}
 	
 	// Create and return an array consisting of all line objects from database query.
-	public function get_line_object_all()
+	public function line_object_all()
 	{
 		$line_array	= array();	// 2D array of all line objects.
 		$line		= NULL;		// Database line objects.
@@ -204,7 +203,7 @@ class Database implements iDatabase
 	}
 	
 	// Create and return a linked list consisting of all line objects from database query.
-	public function get_line_object_list()
+	public function line_object_list()
 	{
 		$result = new \SplDoublyLinkedList();	// Linked list object.	
 		$line	= NULL;				// Database line objects.
@@ -221,18 +220,18 @@ class Database implements iDatabase
 	}
 	
 	// Move to and return next result set.
-	public function get_next_result()
+	public function next_result()
 	{
 		$result = FALSE;
 		
-		$result = sqlsrv_next_result($this->statement);
+		$result = $this->sto_instance->nextRowset();
 		
 		return $result;
 	
 	}
 	
 	// Return number of records from query result.	
-	public function get_row_count()
+	public function row_count()
 	{
 		$count = 0;
 		
@@ -244,7 +243,7 @@ class Database implements iDatabase
 	}
 	
 	// Verify result set contains any rows.	
-	public function get_row_exists()
+	public function row_exists()
 	{
 		$result = FALSE;
 		
