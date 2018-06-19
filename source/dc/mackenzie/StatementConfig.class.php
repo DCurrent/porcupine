@@ -1,13 +1,12 @@
 <?php
+declare(strict_types=1);
 
 namespace dc\mackenzie;
-
-declare(strict_types=1);
 
 require_once('config.php');
 
 // Data structure for the options parameter when preparing SQL queries.
-interface iDatabaseConfig
+interface iStatementConfig
 {	
 	// Accessors
 	function get_error();
@@ -29,7 +28,7 @@ class StatementConfig implements iStatementConfig
 	public function __construct(Error $error = NULL)
 	{
 		// Populate defaults.
-		$this->error		= $this->construct_error($error);
+		$this->construct_error($error);
 		$this->timeout		= DEFAULTS::TIMEOUT;
 	}
 	
