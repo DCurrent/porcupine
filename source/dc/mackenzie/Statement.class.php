@@ -38,6 +38,7 @@ class Statement implements iStatement
 	// Magic
 	public function __construct(STO $sto_instance = NULL, StatementConfig $sto_config = NULL)
 	{
+		$this->construct_statement_instance($sto_instance);
 		$this->construct_config($sto_config);	
 	}
 	
@@ -64,6 +65,29 @@ class Statement implements iStatement
 		
 		// Populate member with result.
 		$this->sto_config = $result;
+	
+		return $result;
+	}
+	
+	// Constructors
+	private function construct_statement_instance(STO $value = NULL)
+	{
+		$result = NULL;	// Final connection result.
+		
+		// Verify argument is an object.
+		$is_object = is_object($value);
+		
+		if($is_object)
+		{
+			$result = $value;		
+		}
+		else
+		{
+			$result = new STO();		
+		}
+		
+		// Populate member with result.
+		$this->sto_instance = $result;
 	
 		return $result;
 	}
