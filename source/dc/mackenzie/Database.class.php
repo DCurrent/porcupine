@@ -13,7 +13,7 @@ interface iDatabase
 	// Accessors
 	function get_connect_config(): ConnectConfig;		// Return connection config object.
 	function get_dbo_config(): DatabaseConfig;			// Return database config object.
-	function get_dbo_instance();						// Return active database instance (connection).
+	function get_dbo_instance(): PDO;					// Return active database instance (connection).
 	function get_line_config();							// Return line parameters object.
 	function get_param_array();							// Return query parameter array.
 	function get_sql();									// Return current SQl statement.
@@ -248,7 +248,7 @@ class Database implements iDatabase
 		return $this->dbo_config;
 	}
 	
-	public function get_dbo_instance()
+	public function get_dbo_instance(): PDO
 	{
 		return $this->dbo_instance;
 	}
