@@ -14,7 +14,6 @@ interface iDatabase
 	function get_connect_config(): ConnectConfig;		// Return connection config object.
 	function get_dbo_config(): DatabaseConfig;			// Return database config object.
 	function get_dbo_instance(): PDO;					// Return active database instance (connection).
-	function get_param_array();							// Return query parameter array.
 	function get_sql();									// Return current SQl statement.
 	function get_statement();							// Return query statement data member.
 	
@@ -22,7 +21,6 @@ interface iDatabase
 	function set_connect_config(ConnectConfig $value);	// Set the object used for connection config attributes.	
 	function set_dbo_config(DatabaseConfig $value);		// Set the object to be used for query config attributes.
 	function set_dbo_instance($value);					// Set set active database instance (connection).
-	function set_param_array(array $value);				// Set query sql parameter array data member.
 	function set_sql(string $value);					// Set query sql string data member.
 	function set_statement(PDOStatement $value);		// Set query statement reference.
 	
@@ -38,7 +36,6 @@ class Database implements iDatabase
 	private $connect_config	= NULL;		// Connection configuration object.
 	private $dbo_config		= NULL;		// Query config object.
 	private	$dbo_instance	= NULL;		// DB connection object.
-	private	$params 		= array();	// SQL parameters.
 	private	$sql			= NULL;		// SQL string.
 	private	$statement		= NULL;		// Prepared/Executed query reference.
 	
@@ -229,12 +226,7 @@ class Database implements iDatabase
 	{
 		return $this->error;	
 	}
-	
-	public function get_param_array()
-	{
-		return $this->params;	
-	}
-	
+		
 	public function get_statement()
 	{
 		return $this->statement;
@@ -245,14 +237,7 @@ class Database implements iDatabase
 		return $this->sql;
 	}
 	
-	// *Mutators
-	
-	// Set query sql parameters data member.
-	public function set_param_array(array $value)
-	{		
-		$this->params = $value;
-	}
-
+	// *Mutators	
 	public function set_connect_config(ConnectConfig $value)
 	{
 		$this->connect_config = $value;
