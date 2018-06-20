@@ -14,7 +14,7 @@ interface iDatabase
 	function get_connect_config(): ConnectConfig;		// Return connection config object.
 	function get_dbo_config(): DatabaseConfig;			// Return database config object.
 	function get_dbo_instance(): PDO;					// Return active database instance (connection).
-	function get_sql();									// Return current SQl statement.
+	function get_sql(): string;							// Return current SQl statement.
 	function get_statement();							// Return query statement data member.
 	
 	// Mutators
@@ -232,7 +232,7 @@ class Database implements iDatabase
 		return $this->statement;
 	}
 	
-	public function get_sql()
+	public function get_sql(): string
 	{
 		return $this->sql;
 	}
