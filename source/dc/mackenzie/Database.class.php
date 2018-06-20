@@ -14,7 +14,6 @@ interface iDatabase
 	function get_connect_config(): ConnectConfig;		// Return connection config object.
 	function get_dbo_config(): DatabaseConfig;			// Return database config object.
 	function get_dbo_instance(): PDO;					// Return active database instance (connection).
-	function get_line_config();							// Return line parameters object.
 	function get_param_array();							// Return query parameter array.
 	function get_sql();									// Return current SQl statement.
 	function get_statement();							// Return query statement data member.
@@ -23,7 +22,6 @@ interface iDatabase
 	function set_connect_config(ConnectConfig $value);	// Set the object used for connection config attributes.	
 	function set_dbo_config(DatabaseConfig $value);		// Set the object to be used for query config attributes.
 	function set_dbo_instance($value);					// Set set active database instance (connection).
-	function set_line_config(LineConfig $value);		// Set line parameters object.
 	function set_param_array(array $value);				// Set query sql parameter array data member.
 	function set_sql(string $value);					// Set query sql string data member.
 	function set_statement(PDOStatement $value);		// Set query statement reference.
@@ -40,13 +38,12 @@ class Database implements iDatabase
 	private $connect_config	= NULL;		// Connection configuration object.
 	private $dbo_config		= NULL;		// Query config object.
 	private	$dbo_instance	= NULL;		// DB connection object.
-	private	$line_config	= NULL;		// Line get config.
 	private	$params 		= array();	// SQL parameters.
 	private	$sql			= NULL;		// SQL string.
 	private	$statement		= NULL;		// Prepared/Executed query reference.
 	
 	// Magic
-	public function __construct(ConnectConfig $connect_config = NULL, DatabaseConfig $dbo_config = NULL, LineConfig $line_config = NULL)
+	public function __construct(ConnectConfig $connect_config = NULL, DatabaseConfig $dbo_config = NULL)
 	{
 		// Set up memeber objects we'll need. In most cases,
 		// if an argument is NULL, a blank object will
@@ -58,9 +55,7 @@ class Database implements iDatabase
 		$this->construct_dbo_config($dbo_config);
 		
 		// Open Connection.
-		$this->open_connection($this->connect_config);		
-		
-		//$this->construct_line_parameters($line_config);	
+		$this->open_connection($this->connect_config);
 	}
 	
 	public function __destruct()
@@ -214,29 +209,6 @@ class Database implements iDatabase
 		return $result;		
 	}
 	
-	private function construct_line_parameters(LineConfig $value = NULL)
-	{
-		$result = NULL;	// Final connection result.
-		
-		// Verify argument is an object.
-		$is_object = is_object($value);
-		
-		if($is_object)
-		{
-			$result = $value;		
-		}
-		else
-		{
-			$result = new LineConfig();		
-		}
-		
-		// Populate member with result.
-		$this->line_config = $result;
-	
-		return $result;		
-	}
-	
-	
 	// *Accessors
 	public function get_connect_config(): ConnectConfig
 	{
@@ -256,11 +228,6 @@ class Database implements iDatabase
 	public function get_error()
 	{
 		return $this->error;	
-	}
-		
-	public function get_line_config()
-	{
-		return $this->line_config;
 	}
 	
 	public function get_param_array()
@@ -306,11 +273,6 @@ class Database implements iDatabase
 		$this->error = $value;
 	}
 			
-	public function set_line_config(LineConfig $value)
-	{
-		$this->line_config = $value;
-	}
-	
 	public function set_sql(string $value)
 	{
 		$this->sql = $value;
