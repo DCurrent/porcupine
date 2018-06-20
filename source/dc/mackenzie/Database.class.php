@@ -11,7 +11,7 @@ require_once('config.php');
 interface iDatabase
 {	
 	// Accessors
-	function get_connect_config();						// Return connection config object.
+	function get_connect_config(): ConnectConfig;		// Return connection config object.
 	function get_dbo_config();							// Return database config object.
 	function get_dbo_instance();						// Return active database instance (connection).
 	function get_line_config();							// Return line parameters object.
@@ -238,7 +238,7 @@ class Database implements iDatabase
 	
 	
 	// *Accessors
-	public function get_connect_config()
+	public function get_connect_config(): ConnectConfig
 	{
 		return $this->connect_config;	
 	}
