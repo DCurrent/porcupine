@@ -3,6 +3,7 @@
 namespace dc\mackenzie;
 
 use \PDO as PDO;
+use \PDOStatement as PDOStatement;
 
 require_once('config.php');
 
@@ -25,7 +26,7 @@ interface iDatabase
 	function set_line_config(LineConfig $value);		// Set line parameters object.
 	function set_param_array(array $value);				// Set query sql parameter array data member.
 	function set_sql(string $value);					// Set query sql string data member.
-	function set_statement($value);						// Set query statement reference.
+	function set_statement(PDOStatement $value);		// Set query statement reference.
 	
 	// Operations
 	function free_statement();							// Free statement and clear statement member.
@@ -310,12 +311,12 @@ class Database implements iDatabase
 		$this->line_config = $value;
 	}
 	
-	public function set_sql($value)
+	public function set_sql(string $value)
 	{
 		$this->sql = $value;
 	}
 	
-	public function set_statement($value)
+	public function set_statement(PDOStatement $value)
 	{
 		$this->statement = $value;
 	}
