@@ -24,7 +24,7 @@ interface iDatabase
 	function set_dbo_instance($value);					// Set set active database instance (connection).
 	function set_line_config(LineConfig $value);		// Set line parameters object.
 	function set_param_array(array $value);				// Set query sql parameter array data member.
-	function set_sql($value);							// Set query sql string data member.
+	function set_sql(string $value);					// Set query sql string data member.
 	function set_statement($value);						// Set query statement reference.
 	
 	// Operations
