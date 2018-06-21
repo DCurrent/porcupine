@@ -26,7 +26,7 @@ interface iDatabase
 	
 	// Operations
 	function free_statement(): bool;					// Free statement and clear statement member.
-	function query_execute();							// Execute prepared query with current parameters.
+	function query_action(): int;						// Execute SQL string and return number of rows affected.
 	function query_prepare();							// Prepare query. Returns statement reference and sends to data member.
 	function query_run();								// Prepare and execute query.	
 }
@@ -299,8 +299,8 @@ class Database implements iDatabase
 		}
 	}
 	
-	// Execute prepared query with current parameters.
-	public function query_execute()
+	// Run SQL string as a query and return number of rows affected.
+	public function query_action(): int
 	{
 		$result;
 		$error_handler 	= $this->dbo_config->get_error();
@@ -308,7 +308,7 @@ class Database implements iDatabase
 		try 
 		{
 			// Verify statement.
-			if(!$this->statement)
+			if(!$this->sql)
 			{				
 				$error_handler->exception_throw(new Exception(EXCEPTION_MSG::QUERY_EXECUTE_STATEMENT, EXCEPTION_CODE::QUERY_EXECUTE_STATEMENT));				
 			}			
@@ -317,17 +317,17 @@ class Database implements iDatabase
 			// then we catch it and throw our own exception.
 			try 
 			{
-				$result = $this->statement->execute();
+				$result = $this->statement->exec();
 			}
 			catch(\PDOException $exception) 
 			{	
-				$error_handler->exception_throw(new Exception(EXCEPTION_MSG::QUERY_EXECUTE_ERROR, EXCEPTION_CODE::QUERY_EXECUTE_ERROR));
+				$error_handler->exception_throw(new Exception(EXCEPTION_MSG::QUERY_ACTION_SQL, EXCEPTION_CODE::QUERY_ACTION_SQL));
 			}
 			
 			// False/Failure returned.
-			if(!$result)
+			if($result === FALSE)
 			{				
-				$error_handler->exception_throw(new Exception(EXCEPTION_MSG::QUERY_EXECUTE_FAIL, EXCEPTION_CODE::QUERY_EXECUTE_FAIL));
+				$error_handler->exception_throw(new Exception(EXCEPTION_MSG::QUERY_ACTION_FAIL, EXCEPTION_CODE::QUERY_ACTION_FAIL));
 			}			
 		}
 		catch (Exception $exception) 
