@@ -317,7 +317,7 @@ class Database implements iDatabase
 			// then we catch it and throw our own exception.
 			try 
 			{
-				$result = $this->statement->exec();
+				$result = $this->dbo_instance->exec();
 			}
 			catch(\PDOException $exception) 
 			{	
