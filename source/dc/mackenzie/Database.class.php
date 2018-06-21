@@ -25,7 +25,7 @@ interface iDatabase
 	function set_statement(PDOStatement $value);		// Set query statement reference.
 	
 	// Operations
-	function free_statement();							// Free statement and clear statement member.
+	function free_statement(): bool;					// Free statement and clear statement member.
 	function query_execute();							// Execute prepared query with current parameters.
 	function query_prepare();							// Prepare query. Returns statement reference and sends to data member.
 	function query_run();								// Prepare and execute query.	
@@ -261,7 +261,7 @@ class Database implements iDatabase
 	
 	// *Request
 	// Free statement and clear statement member.
-	public function free_statement()
+	public function free_statement(): bool
 	{
 		$result;
 		$error_handler 	= $this->dbo_config->get_error();
