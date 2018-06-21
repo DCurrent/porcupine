@@ -222,11 +222,6 @@ class Database implements iDatabase
 		return $this->dbo_instance;
 	}
 	
-	public function get_error()
-	{
-		return $this->error;	
-	}
-		
 	public function get_statement(): PDOStatement
 	{
 		return $this->statement;
@@ -251,11 +246,6 @@ class Database implements iDatabase
 	public function set_dbo_instance($value)
 	{
 		$this->dbo_instance = $value;
-	}
-	
-	public function set_error(Error $value)
-	{
-		$this->error = $value;
 	}
 			
 	public function set_sql(string $value)
