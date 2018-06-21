@@ -44,47 +44,61 @@ abstract class DEFAULTS
 // in catch blocks outside of Yukon.
 abstract class EXCEPTION_CODE
 {
+	// 0
 	const CONNECT_CLOSE_FAIL		= 0X0;		// Driver returned failure response attempting to close database connection.
 	const CONNECT_CLOSE_CONNECTION	= 0X1;		// There is no connection to close.
 	const CONNECT_OPEN_FAIL			= 0X2;		// Driver returned failure response attempting to connect to database.
 	const CONNECT_OPEN_HOST			= 0X3; 		// Application did not provide a host target to connect.
 	
+	// 100
 	const FIELD_COUNT_ERROR			= 0X64;		// Field count returned an error code.
 	const FIELD_COUNT_STATEMENT		= 0X65;		// Missing or invalid query statement getting field count.
 	
-	const FREE_STATEMENT_ERROR		= 0XC8;		// Free statement returned an error code.
-	const FREE_STATEMENT_FAIL		= 0XC9;		// Free statement returned failure.
-	const FREE_STATEMENT_STATEMENT	= 0XCA;
-		
-	const LINE_ARRAY_ERROR			= 0X12C;	// Line array - Line array fetch method returned an error code.
-	const LINE_ARRAY_FAIL			= 0X12D;	// Line array - Line array fetch method returned a failure response.
-	const LINE_ARRAY_STATEMENT		= 0X12E;	// Line array - Invalid query statement.
+	// 200
+	const FREE_STATEMENT_ERROR		= 0Xc8;		// Free statement returned an error code.
+	const FREE_STATEMENT_FAIL		= 0Xc9;		// Free statement returned failure.
+	const FREE_STATEMENT_STATEMENT	= 0Xca;
 	
-	const METADATA_ERROR			= 0X1F4;	// Metadata returned an error code.
-	const METADATA_STATEMENT		= 0X1F5;	// Missing or invalid query statement getting metadata.
+	// 300
+	const LINE_ARRAY_ERROR			= 0X12c;	// Line array - Line array fetch method returned an error code.
+	const LINE_ARRAY_FAIL			= 0X12d;	// Line array - Line array fetch method returned a failure response.
+	const LINE_ARRAY_STATEMENT		= 0X12e;	// Line array - Invalid query statement.
 	
+	// 400
+	const METADATA_ERROR			= 0X190;	// Metadata returned an error code.
+	const METADATA_STATEMENT		= 0X191;	// Missing or invalid query statement getting metadata.
+	
+	// 500	
+	const QUERY_ACTION_ERROR		= 0X1f4;	// Query action returned an error code.
+	const QUERY_ACTION_FAIL			= 0X1f5;	// Query action returned a failure response.
+	const QUERY_ACTION_STATEMENT	= 0X1f6;	// Missing or invalid query statement on Query action.
+	
+	// 600
 	const QUERY_EXECUTE_ERROR		= 0X258;	// Execute returned an error code.
 	const QUERY_EXECUTE_FAIL		= 0X259;	// Execute returned a failure response.
-	const QUERY_EXECUTE_STATEMENT	= 0X25A;	// Missing or invalid query statement on execution.
+	const QUERY_EXECUTE_STATEMENT	= 0X25a;	// Missing or invalid query statement on execution.
 	
-	const QUERY_PREPARE_CONFIG		= 0X25B;	// Prepare query - No valid database config.
-	const QUERY_PREPARE_CONNECTION	= 0X25C;	// Prepare query - No connection to database.
-	const QUERY_PREPARE_ERROR		= 0X25D;	// Prepare query - Driver prepare method returned an error code.
-	const QUERY_PREPARE_FAIL		= 0X25E;	// Prepare query - Driver prepare method returned a failure response.
-	const QUERY_PREPARE_PARAM_ARRAY	= 0X25F;	// Prepare query - No valid array of parameters.
-	const QUERY_PREPARE_PARAM_LIST	= 0X260;	// Prepare query - No valid list of parameters.
-	const QUERY_PREPARE_SQL			= 0X261;	// Prepare query - No valid SQL string.
+	// 700
+	const QUERY_PREPARE_CONFIG		= 0X2bc;	// Prepare query - No valid database config.
+	const QUERY_PREPARE_CONNECTION	= 0X2bd;	// Prepare query - No connection to database.
+	const QUERY_PREPARE_ERROR		= 0X2be;	// Prepare query - Driver prepare method returned an error code.
+	const QUERY_PREPARE_FAIL		= 0X2bf;	// Prepare query - Driver prepare method returned a failure response.
+	const QUERY_PREPARE_PARAM_ARRAY	= 0X2c0;	// Prepare query - No valid array of parameters.
+	const QUERY_PREPARE_PARAM_LIST	= 0X2c1;	// Prepare query - No valid list of parameters.
+	const QUERY_PREPARE_SQL			= 0X2c2;	// Prepare query - No valid SQL string.
 	
-	const QUERY_RUN_CONFIG			= 0X2BC;	// Run query - No valid database config.
-	const QUERY_RUN_CONNECTION		= 0X2BD;	// Run query - No connection to database.
-	const QUERY_RUN_ERROR			= 0X2BE;	// Run query - Driver prepare method returned an error code.
-	const QUERY_RUN_FAIL			= 0X2BF;	// Run query - Driver prepare method returned a failure response.
-	const QUERY_RUN_PARAM_ARRAY		= 0X2C0;	// Run query - No valid array of parameters.
-	const QUERY_RUN_PARAM_LIST		= 0X2C1;	// Run query - No valid list of parameters.
-	const QUERY_RUN_SQL				= 0X2C2;	// Run query - No valid SQL string.
+	// 800
+	const QUERY_RUN_CONFIG			= 0X320;	// Run query - No valid database config.
+	const QUERY_RUN_CONNECTION		= 0X321;	// Run query - No connection to database.
+	const QUERY_RUN_ERROR			= 0X322;	// Run query - Driver prepare method returned an error code.
+	const QUERY_RUN_FAIL			= 0X323;	// Run query - Driver prepare method returned a failure response.
+	const QUERY_RUN_PARAM_ARRAY		= 0X324;	// Run query - No valid array of parameters.
+	const QUERY_RUN_PARAM_LIST		= 0X325;	// Run query - No valid list of parameters.
+	const QUERY_RUN_SQL				= 0X326;	// Run query - No valid SQL string.
 	
-	const ROW_COUNT_ERROR			= 0X320;	// Row count returned an error code.
-	const ROW_COUNT_STATEMENT		= 0X321;	// Missing or invalid query statement getting row count.
+	// 900
+	const ROW_COUNT_ERROR			= 0X384;	// Row count returned an error code.
+	const ROW_COUNT_STATEMENT		= 0X385;	// Missing or invalid query statement getting row count.
 }
 
 // Output given by interal exception handler.
@@ -108,6 +122,10 @@ abstract class EXCEPTION_MSG
 	
 	const METADATA_ERROR			= 'Get Metadata - Error occurred.';
 	const METADATA_STATEMENT		= 'Get Metadata - Missing or invalid statement.';
+	
+	const QUERY_ACTION_ERROR		= 'Query Action - Error occurred.';
+	const QUERY_ACTION_FAIL			= 'Query Action - Failed to execute prepared query.';
+	const QUERY_ACTION_STATEMENT	= 'Query Action - Missing or invalid statement.';
 	
 	const QUERY_EXECUTE_ERROR		= 'Query Execute - Error occurred.';
 	const QUERY_EXECUTE_FAIL		= 'Query Execute - Failed to execute prepared query.';
