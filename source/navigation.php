@@ -137,28 +137,38 @@
 			ob_start();
 		?>
         	
-            <div id="nav_footer" class="container card card-body bg-light" style="width:95%; margin-top:20px;">   
-                <ul class="list-inline">                       
-                    <li>
-                    	<ul class="list-unstyled text-muted small" style="margin-bottom:10px;">
-                        	<li><?php echo APPLICATION_SETTINGS::NAME; ?> Ver <?php echo APPLICATION_SETTINGS::VERSION; ?>, Engine <?php echo PHP_VERSION; ?></li>   
-                        	<li>Developed by: <a href="mailto:dc@caskeys.com"><span class="glyphicon glyphicon-envelope"></span> Caskey, Damon V.</a></li>
-                            <li>Copyright &copy; <?php echo date("Y"); ?>, Caskeys Inc</li>
-                            <li>Last update: 
-                                <?php 
-                                echo date(APPLICATION_SETTINGS::TIME_FORMAT, filemtime($_SERVER['SCRIPT_FILENAME']));  
-                                
-                                if (isset($iReqTime)) 
-                                { 
-                                    echo ". Generated in " .round(microtime(true) - $iReqTime,3). " seconds."; 
-                                } 
-                                ?></li>
-                     	</ul>
-                     </li>
-                     <div style="float:right;">
-                        <img src="<?php echo APPLICATION_SETTINGS::DIRECTORY_PRIME; ?>/media/php_logo_1.png" class="img-responsive pull-right" alt="Powered by objected oriented PHP." title="Powered by object oriented PHP." />
-                     </div>
-                </ul>
+            <div id="nav_footer" class="container card card-body bg-light" style="width:95%; margin-top:20px;"> 
+				
+				<div class="row">
+					
+					<!-- App Info -->
+					<div class="col-sm-10">
+						<ul class="list-inline mr-auto">                       
+							<li>
+								<ul class="list-unstyled text-muted small" style="margin-bottom:10px;">
+									<li><?php echo APPLICATION_SETTINGS::NAME; ?> Ver <?php echo APPLICATION_SETTINGS::VERSION; ?>, Engine <?php echo PHP_VERSION; ?></li>   
+									<li>Developed by: <a href="mailto:dc@caskeys.com"><span class="glyphicon glyphicon-envelope"></span> Caskey, Damon V.</a></li>
+									<li>Copyright &copy; <?php echo date("Y"); ?>, Caskeys Inc</li>
+									<li>Last update: 
+										<?php 
+										echo date(APPLICATION_SETTINGS::TIME_FORMAT, filemtime($_SERVER['SCRIPT_FILENAME']));  
+
+										if (isset($iReqTime)) 
+										{ 
+											echo ". Generated in " .round(microtime(true) - $iReqTime,3). " seconds."; 
+										} 
+										?></li>
+								</ul>
+							 </li>							 
+						</ul>
+					</div>
+					
+					<!-- Engine logo -->
+					<div class="col-sm-2">						
+						<img src="<?php echo APPLICATION_SETTINGS::DIRECTORY_PRIME; ?>/media/php_logo_1.png" class="img-fluid mx-auto d-block" alt="Powered by objected oriented PHP." title="Powered by object oriented PHP." />							
+					</div>
+				</div>
+				
             </div><!--#nav_footer-->
         <?php
 			// Collect contents from cache and then clean it.
