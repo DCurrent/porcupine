@@ -70,7 +70,7 @@
 				
 				<div id="main_nav_collapse" class="collapse navbar-collapse">					
 					
-					<ul class="navbar-nav">
+					<ul class="navbar-nav mr-auto">
 						
 						<!-- Dropdown, Records -->
 						<li class="nav-item dropdown">
@@ -90,16 +90,35 @@
 									<a class="dropdown-item" href="<?php echo $this->directory_prime; ?>?id_form=1182&amp;list=1"><?php echo NAV_INDENT; ?>Account Roles</a>
 								<li class="divider"></li>
 								<li class="dropdown-header">Locations</li>
-									<a class="dropdown-item" href="<?php echo $this->directory_prime; ?>/area_list.php"><?php echo NAV_INDENT; ?>Areas</a></li>
+									<a class="dropdown-item" href="<?php echo $this->directory_prime; ?>/area_list.php"><?php echo NAV_INDENT; ?>Areas</a>
 								<li class="divider"></li>
 								<li class="dropdown-header">Inventory</li>
 									<a class="dropdown-item" href="<?php echo $this->directory_prime; ?>/?id_form=1172&amp;list=1"><?php echo NAV_INDENT; ?>Item</a>
 									<a class="dropdown-item" href="<?php echo $this->directory_prime; ?>/?id_form=1548&amp;list=1"><?php echo NAV_INDENT; ?>Make</a>
 									<a class="dropdown-item" href="<?php echo $this->directory_prime; ?>/?id_form=1552&amp;list=1"><?php echo NAV_INDENT; ?>Model</a>                                 	
 							</ul>
-						</li>
-					
+						</li>					
 					</ul>
+
+					<span class="navbar-text">
+                        	<span class="fa fa-user-o"></span>&nbsp;Guest
+                        <?php
+							/*
+							if($this->access_obj->get_account())
+							{
+						?>
+                        		<li><a href="<?php echo $this->access_obj->get_config()->get_authenticate_url(); ?>?access_action=<?php echo \dc\stoeckl\ACTION::LOGOFF; ?>"><span class="glyphicon glyphicon-log-out"></span> <?php echo $this->access_obj->name_full(); ?></a></li>
+                        <?php
+							}
+							else
+							{
+						?>
+                        		<li><a href="<?php echo $this->access_obj->get_config()->get_authenticate_url(); ?>"><span class="glyphicon glyphicon-log-in"></span> Guest</a></li>
+                        <?php
+							}
+							*/
+						?>                   
+                	</span>
 					
 				</div>
 			</nav>
