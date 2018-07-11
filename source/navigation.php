@@ -137,7 +137,7 @@
 			ob_start();
 		?>
         	
-            <div id="nav_footer" class="container well" style="width:95%; margin-top:20px;">   
+            <div id="nav_footer" class="container card card-body bg-light" style="width:95%; margin-top:20px;">   
                 <ul class="list-inline">                       
                     <li>
                     	<ul class="list-unstyled text-muted small" style="margin-bottom:10px;">
