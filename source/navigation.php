@@ -58,23 +58,33 @@
 			// Start output caching.
 			ob_start();
 		?>
-			<nav class="navbar navbar-expand-sm bg-light">
+			<nav id="main_nav" class="navbar navbar-expand-sm bg-light">
+				
+				<!-- Brand -->
 				<a class="navbar-brand" href="<?php echo $this->directory_prime; ?>"><?php echo APPLICATION_SETTINGS::NAME; ?></a>
-				<ul class="navbar-nav">
-					<li class="nav-item">
-						<a class="nav-link" href="#">Link 1</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Link 2</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Link 3</a>
-					</li>
-				</ul>
+				
+				<!-- Toggler/collapsibe Button -->
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main_nav_collapse">
+					<span class="navbar-toggler-icon fa fa-bars"></span>
+				</button>
+				
+				<div id="main_nav_collapse" class="collapse navbar-collapse">
+					<ul class="navbar-nav">
+						<li class="nav-item">
+							<a class="nav-link" href="#">Link 1</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Link 2</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Link 3</a>
+						</li>
+					</ul>
+				</div>
 			</nav>
 			<br>
 
-        	 <nav id="main_nav" class="navbar navbar-default">
+        	 <nav id="main_nav_" class="navbar navbar-default">
                 <div id="main_nav_container" class="container-fluid">
                     <div id="main_nav_header" class="navbar-header">
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav_main">
