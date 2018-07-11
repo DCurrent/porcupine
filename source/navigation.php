@@ -69,17 +69,18 @@
 				</button>
 				
 				<div id="main_nav_collapse" class="collapse navbar-collapse">
+					
+					<!-- Dropdown, Records -->
 					<ul class="navbar-nav">
-						<li class="nav-item">
-							<a class="nav-link" href="#">Link 1</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#">Link 2</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#">Link 3</a>
-						</li>
+						<!--<li class="active"><a href="#">Home</a></li>-->
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle <?php echo $class_add; ?>" data-toggle="dropdown" href="#">Records<span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<a class="dropdown-item" href="<?php echo $this->directory_prime; ?>?id_form=1550&amp;list=1">Pawn List</a>
+							</ul>
+						</li>						
 					</ul>
+					
 				</div>
 			</nav>
 			<br>
