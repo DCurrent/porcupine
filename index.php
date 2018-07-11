@@ -204,27 +204,7 @@
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     </head>
     
-    <body>          
-        <!-- Modal -->
-        <div id="help_link_blue" class="modal fade" role="dialog">
-          <div class="modal-dialog">
-        
-            <!-- Modal content-->
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Link Blue</h4>
-              </div>
-              <div class="modal-body">
-                <p>Link Blue is the University of Kentucky's campus wide Active Directory login. It is the same account name and password you use to log into a workstation. <a href="//www.uky.edu/UKHome/subpages/linkblue.html" target="_blank">Click here</a> for more information.</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              </div>
-            </div>        
-          </div>
-        </div>
-    
+    <body>              
         <div id="container" class="container">            
             <?php echo $navigation_obj->get_markup_nav(); ?>                                                                                
             <div class="page-header">
