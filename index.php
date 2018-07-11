@@ -257,8 +257,10 @@
                         <!--Note: PHP self is nessesary to override any link vars.-->
                         <form role="form" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                             <div class="form-group">
-                                <span class="input-group-addon"><i class="fa fa-user-o"></i></span>
-                                <input type="text" class="form-control" name="account" id="account" placeholder="Account" required>
+								<div class="input-group col-sm-10">
+                    				<span class="input-group-prepend input-group-text fa fa-user-o"></span>                           
+                                	<input type="text" class="form-control" name="account" id="account" placeholder="Account" required>
+								</div>
                             </div>
                             <br>
                             <div class="form-group">
