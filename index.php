@@ -256,6 +256,8 @@
                     	
                         <!--Note: PHP self is nessesary to override any link vars.-->
                         <form role="form" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+							
+							<!-- Account -->
                             <div class="form-group">
 								<div class="input-group col-sm-10">
                     				<span class="input-group-prepend input-group-text fa fa-user-o"></span>                           
@@ -263,14 +265,18 @@
 								</div>
                             </div>
                             <br>
+							
+							<!-- Password -->
                             <div class="form-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                                <input type="password" class="form-control" name="credential" id="credential" placeholder="Password" required>
-                            </div>
-                            
+								<div class="input-group col-sm-10">
+                                	<span class="input-group-prepend input-group-text fa fa-lock"></span> 
+                                	<input type="password" class="form-control" name="credential" id="credential" placeholder="Password" required>
+								</div>
+                            </div>                            
                             <br>
                             
-                            <button type="submit" name="access_action" value="<?php //echo \dc\stoeckl\ACTION::LOGIN; ?>" class="btn btn-lg btn-primary btn-block">Sign in</button>
+							<!-- Submit -->
+                            <button type="submit" name="access_action" value="<?php //echo \dc\stoeckl\ACTION::LOGIN; ?>" class="btn btn-primary btn-block">Sign in</button>
                         </form>
             
                 <?php
