@@ -68,17 +68,37 @@
 					<span class="navbar-toggler-icon fa fa-bars"></span>
 				</button>
 				
-				<div id="main_nav_collapse" class="collapse navbar-collapse">
+				<div id="main_nav_collapse" class="collapse navbar-collapse">					
 					
-					<!-- Dropdown, Records -->
 					<ul class="navbar-nav">
-						<!--<li class="active"><a href="#">Home</a></li>-->
+						
+						<!-- Dropdown, Records -->
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle <?php echo $class_add; ?>" data-toggle="dropdown" href="#">Records<span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<a class="dropdown-item" href="<?php echo $this->directory_prime; ?>?id_form=1550&amp;list=1">Pawn List</a>
 							</ul>
-						</li>						
+						</li>	
+						
+						<!-- Dropdown, System -->
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle <?php echo $class_add; ?>" data-toggle="dropdown" href="#">System<span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li class="dropdown-header">Administration</li>
+									<a class="dropdown-item" href="<?php echo $this->directory_prime; ?>/config_common_entry_list.php"><?php echo NAV_INDENT; ?>Common Entry Forms</a>
+									<a class="dropdown-item" href="<?php echo $this->directory_prime; ?>?id_form=1256&amp;list=1"><?php echo NAV_INDENT; ?>Accounts</a>
+									<a class="dropdown-item" href="<?php echo $this->directory_prime; ?>?id_form=1182&amp;list=1"><?php echo NAV_INDENT; ?>Account Roles</a>
+								<li class="divider"></li>
+								<li class="dropdown-header">Locations</li>
+									<a class="dropdown-item" href="<?php echo $this->directory_prime; ?>/area_list.php"><?php echo NAV_INDENT; ?>Areas</a></li>
+								<li class="divider"></li>
+								<li class="dropdown-header">Inventory</li>
+									<a class="dropdown-item" href="<?php echo $this->directory_prime; ?>/?id_form=1172&amp;list=1"><?php echo NAV_INDENT; ?>Item</a>
+									<a class="dropdown-item" href="<?php echo $this->directory_prime; ?>/?id_form=1548&amp;list=1"><?php echo NAV_INDENT; ?>Make</a>
+									<a class="dropdown-item" href="<?php echo $this->directory_prime; ?>/?id_form=1552&amp;list=1"><?php echo NAV_INDENT; ?>Model</a>                                 	
+							</ul>
+						</li>
+					
 					</ul>
 					
 				</div>
