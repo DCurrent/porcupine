@@ -242,7 +242,7 @@
 					{
 					*/
 				?>
-                		<p class="lead">Welcome to <?php echo APPLICATION_SETTINGS::NAME; ?>. In order to use <?php echo APPLICATION_SETTINGS::NAME; ?>, please log in using your account and password.</p>
+                		<p class="lead">Welcome to <?php echo APPLICATION_SETTINGS::NAME; ?>. In order to use <?php echo APPLICATION_SETTINGS::NAME; ?>, please log in with your account and password.</p>
             		
                     	<p><?php //echo $access_obj->dialog(); ?></p>
                     	
@@ -266,7 +266,7 @@
                 <?php
 					//}					
 				?>
-            </div> 
+            </div>
                     
             <?php echo $navigation_obj->get_markup_footer(); ?>
         </div><!--container-->    
