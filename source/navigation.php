@@ -59,6 +59,7 @@
 			ob_start();
 		?>
 			<nav class="navbar navbar-expand-sm bg-light">
+				<a class="navbar-brand" href="<?php echo $this->directory_prime; ?>"><?php echo APPLICATION_SETTINGS::NAME; ?></a>
 				<ul class="navbar-nav">
 					<li class="nav-item">
 						<a class="nav-link" href="#">Link 1</a>
