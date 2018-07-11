@@ -250,7 +250,7 @@
 					{
 					*/
 				?>
-                		<p class="lead">Welcome to <?php echo APPLICATION_SETTINGS::NAME; ?>. In order to use <?php echo APPLICATION_SETTINGS::NAME; ?>, please log in with your account and password.</p>
+                		<p class="lead">Welcome to <?php echo APPLICATION_SETTINGS::NAME; ?>. To get started, please sign in with your account and password.</p>
             		
                     	<p><?php //echo $access_obj->dialog(); ?></p>
                     	
