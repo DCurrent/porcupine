@@ -58,6 +58,21 @@
 			// Start output caching.
 			ob_start();
 		?>
+			<nav class="navbar navbar-expand-sm bg-light">
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a class="nav-link" href="#">Link 1</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">Link 2</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">Link 3</a>
+					</li>
+				</ul>
+			</nav>
+			<br>
+
         	 <nav id="main_nav" class="navbar navbar-default">
                 <div id="main_nav_container" class="container-fluid">
                     <div id="main_nav_header" class="navbar-header">
