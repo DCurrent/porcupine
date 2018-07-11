@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace dc\mackenzie;
 
@@ -346,9 +347,9 @@ class Database implements iDatabase
 		$error_handler 	= $this->dbo_config->get_error();
 		
 		$dbo_instance	= NULL;		// Database connection reference.
-		$statement	= NULL;		// Database statement reference.			
-		$sql		= NULL;		// SQL string.
-		$params		= array(); 	// Parameter array.
+		$statement		= NULL;		// Database statement reference.			
+		$sql			= NULL;		// SQL string.
+		$params			= array(); 	// Parameter array.
 		$dbo_config		= NULL;		// Query config object.
 		$dbo_config_a	= array();	// Query config array.
 		
