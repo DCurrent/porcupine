@@ -253,37 +253,22 @@
                 		<p class="lead">Welcome to <?php echo APPLICATION_SETTINGS::NAME; ?>. In order to use <?php echo APPLICATION_SETTINGS::NAME; ?>, please log in with your account and password.</p>
             		
                     	<p><?php //echo $access_obj->dialog(); ?></p>
-				
-				
-						<form class="form-signin">
-						  <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-							
-						  	<label for="inputEmail" class="sr-only">Email address</label>
-						  		<input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-						  	
-							<label for="inputPassword" class="sr-only">Password</label>							
-							<input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-						  
-							
-						  <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>		
-						</form>
-				
                     	
                         <!--Note: PHP self is nessesary to override any link vars.-->
                         <form role="form" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-                            <div class="input-group">
+                            <div class="form-group">
                                 <span class="input-group-addon"><i class="fa fa-user-o"></i></span>
                                 <input type="text" class="form-control" name="account" id="account" placeholder="Account" required>
                             </div>
                             <br>
-                            <div class="input-group">
+                            <div class="form-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                                 <input type="password" class="form-control" name="credential" id="credential" placeholder="Password" required>
                             </div>
                             
                             <br>
                             
-                            <button type="submit" name="access_action" value="<?php //echo \dc\stoeckl\ACTION::LOGIN; ?>" class="btn btn-default"><span class="glyphicon glyphicon-log-in"></span> Login</button>
+                            <button type="submit" name="access_action" value="<?php //echo \dc\stoeckl\ACTION::LOGIN; ?>" class="btn btn-lg btn-primary btn-block">Sign in</button>
                         </form>
             
                 <?php
