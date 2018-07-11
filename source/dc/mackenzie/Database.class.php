@@ -28,7 +28,7 @@ interface iDatabase
 	// Operations
 	function free_statement(): bool;					// Free statement and clear statement member.
 	function query_action(): int;						// Execute SQL string and return number of rows affected.
-	function query_prepare();							// Prepare query. Returns statement reference and sends to data member.
+	function query_prepare(): PDOStatement;				// Prepare query. Returns statement reference and sends to data member.
 	function query_run();								// Prepare and execute query.	
 }
 
@@ -341,7 +341,7 @@ class Database implements iDatabase
 	}
 	
 	// Prepare query. Returns statement reference and updates data member.
-	public function query_prepare()
+	public function query_prepare(): PDOStatement
 	{
 		// Dereference error handler.
 		$error_handler 	= $this->dbo_config->get_error();
