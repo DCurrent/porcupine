@@ -118,75 +118,9 @@
 							}
 							*/
 						?>                   
-                	</span>
-					
+                	</span>					
 				</div>
 			</nav>
-			<br>
-
-        	 <nav id="main_nav_" class="navbar navbar-default">
-                <div id="main_nav_container" class="container-fluid">
-                    <div id="main_nav_header" class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav_main">
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>                        
-                        </button>
-                        <a class="navbar-brand" href="<?php echo $this->directory_prime; ?>"><?php echo APPLICATION_SETTINGS::NAME; ?></a>
-                    </div><!--#main_nav_header-->
-                    
-                    <div class="collapse navbar-collapse" id="nav_main">
-                        <ul class="nav navbar-nav">
-                            <!--<li class="active"><a href="#">Home</a></li>-->
-                            <li class="dropdown">
-                                <a class="dropdown-toggle <?php echo $class_add; ?>" data-toggle="dropdown" href="#">Records<span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="<?php echo $this->directory_prime; ?>?id_form=1550&amp;list=1">Pawn List</a></li>
-                                </ul>
-                            </li>
-                           	<li><a class="disabled <?php echo $class_add; ?>" href="#">Review</a></li>
-                            <li class="dropdown">
-                                <a class="dropdown-toggle <?php echo $class_add; ?>" data-toggle="dropdown" href="#">System<span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                	<li class="dropdown-header">Administration</li>
-                                        <li><a href="<?php echo $this->directory_prime; ?>/config_common_entry_list.php"><?php echo NAV_INDENT; ?>Common Entry Forms</a></li>
-                                    	<li><a href="<?php echo $this->directory_prime; ?>?id_form=1256&amp;list=1"><?php echo NAV_INDENT; ?>Accounts</a></li>
-                                    	<li><a href="<?php echo $this->directory_prime; ?>?id_form=1182&amp;list=1"><?php echo NAV_INDENT; ?>Account Roles</a></li>
-                                    <li class="divider"></li>
-                                	<li class="dropdown-header">Locations</li>
-                                    	<li><a href="<?php echo $this->directory_prime; ?>/area_list.php"><?php echo NAV_INDENT; ?>Areas</a></li>
-                                    <li class="divider"></li>
-                                    <li class="dropdown-header">Inventory</li>
-                                    	<li><a href="<?php echo $this->directory_prime; ?>/?id_form=1172&amp;list=1"><?php echo NAV_INDENT; ?>Item</a></li>
-                                    	<li><a href="<?php echo $this->directory_prime; ?>/?id_form=1548&amp;list=1"><?php echo NAV_INDENT; ?>Make</a></li>
-                                        <li><a href="<?php echo $this->directory_prime; ?>/?id_form=1552&amp;list=1"><?php echo NAV_INDENT; ?>Model</a></li>                                 	
-                                </ul>
-                            </li>
-                        </ul>
-                        <ul class="nav navbar-nav navbar-right">
-                        	<span class="glyphicon glyphicon-log-in"></span> Guest</a></li>
-                        <?php
-							/*
-							if($this->access_obj->get_account())
-							{
-						?>
-                        		<li><a href="<?php echo $this->access_obj->get_config()->get_authenticate_url(); ?>?access_action=<?php echo \dc\stoeckl\ACTION::LOGOFF; ?>"><span class="glyphicon glyphicon-log-out"></span> <?php echo $this->access_obj->name_full(); ?></a></li>
-                        <?php
-							}
-							else
-							{
-						?>
-                        		<li><a href="<?php echo $this->access_obj->get_config()->get_authenticate_url(); ?>"><span class="glyphicon glyphicon-log-in"></span> Guest</a></li>
-                        <?php
-							}
-							*/
-						?>                   
-                        </ul>
-                                    
-                    </div><!--#nav_main-->
-                </div><!--#main_nav_container-->
-            </nav><!--#main_nav--> 
-        
                  	
         <?php
 			
